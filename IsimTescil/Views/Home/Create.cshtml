@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <b>Ekle</b>
+            </header>
+            <div class="panel-body">
+                <form class="form form-vertical" enctype="multipart/form-data" asp-action="Create" asp-controller="Home" method="post">
+
+                    <div class="form-group has-success">
+                        <label style="font-size:17px" class="col-lg-2 control-label">Ürün Adı</label>
+                        <div class="col-lg-10">
+                            <input type="text" placeholder="" id="f-name" class="form-control" name="UrunAdi" value="">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label style="font-size:17px" class="col-lg-2 control-label">Ürün Fiyatı</label>
+                        <div class="col-lg-10">
+                            <input type="text" placeholder="" id="f-name" class="form-control" name="Fiyat" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10 " style="margin-top:10px;">
+                            <button class="btn btn-info" type="submit">Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>

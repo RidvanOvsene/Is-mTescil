@@ -1,0 +1,38 @@
+﻿@model IsimTescil.Models.Urunler
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <b>Ekle</b>
+            </header>
+            <div class="panel-body">
+                <form class="form form-vertical" enctype="multipart/form-data" asp-action="Edit" asp-controller="Home" method="post">
+
+                    <div class="form-group has-success">
+                        <label style="font-size:17px" class="col-lg-2 control-label">Ürün Adı</label>
+                        <div class="col-lg-10">
+                            <input type="number" autocomplete="off" style="display:none !important" id="first-name-vertical" class="form-control" name="Id" value="@Model.Id" />
+                            <input type="text" placeholder="" id="f-name" class="form-control" name="UrunAdi" value="@Model.UrunAdi">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label style="font-size:17px" class="col-lg-2 control-label">Ürün Fiyatı</label>
+                        <div class="col-lg-10">
+                            <input type="text" placeholder="" id="f-name" class="form-control" name="Fiyat" value="@Model.Fiyat">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10 " style="margin-top:10px;">
+                            <button class="btn btn-info" type="submit">Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,192 @@
+﻿@model List<IsimTescil.Models.Urunler>
+@{
+    ViewBag.Title = "UrunList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+    int ToplamSayi = 0;
+    double ToplamFiyat = 0;
+    int r = 1;
+
+
+
+}
+<p></p>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <section class="panel">
+            <header class="panel-heading no-border">
+                Ürünler
+            </header>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Ürün Adı</th>
+                        <th>Fiyatı</th>
+                        <th>Sepate ekle</th>
+                        <th>Tarih</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>@i</td>
+
+                            <td>@item.UrunAdi</td>
+                            <td>@item.Fiyat</td>
+                            <td>
+                                <a href="/Home/SepeteEkle/@item.Id" class=" btn btn-warning btn-sm "><i data-feather='edit'></i>Sepete Ekle </a>
+                            </td>
+                        </tr>
+                        i = i + 1;
+
+                    }
+
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+<br />
+<br />
+<h2>Sepet</h2>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <section class="panel">
+            <header class="panel-heading no-border">
+                Ürünler
+            </header>
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="text-align:center" class="FontSize">
+                        <th>Ürün Adı</th>
+                        <th> Fiyatı</th>
+                        @if (ViewBag.IsWekeend)
+                        {
+                            <th>Hafta Sonuna Özel Fiyat</th>
+                        }
+
+                        <th>Eksilt</th>
+                        <th>Adedi</th>
+                        <th>Artır</th>
+                        <th>Tutar</th>
+                        @if (ViewBag.IsWekeend)
+                        {
+                            <th> Hafta Sonuna Özel Toplam İndirimli Tutar</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.sepet)
+                    {
+
+                        if (@item.Adet > 0)
+                        {
+                            <tr class="FontSize">
+                                <td>@item.UrunAdi</td>
+                                <td>@item.Fiyat ₺</td>
+                                @if (ViewBag.IsWekeend)
+                                {
+                                    <td>@(item.Fiyat - item.Fiyat * 0.1) </td>
+                                }
+                                <td>
+
+                                    <a href="/Home/Eksilt/@item.Id"><img style=" height: 45px;" src="~/Image/Eksi.jpg" /> </a>
+                                </td>
+                                <td>
+                                    @item.Adet
+                                </td>
+                                <td>
+                                    <a href="/Home/Artir/@item.Id">  <img style=" height: 40px;" src="~/Image/Arı İşaret.jpg" /></a>
+                                </td>
+                                <td>@(item.Fiyat * item.Adet) ₺</td>
+                                @if (ViewBag.IsWekeend)
+                                {
+                                    <td>@((item.Fiyat - item.Fiyat * 0.1) * item.Adet)</td>
+                                }
+                            </tr>
+                        }
+
+                        ToplamSayi = ToplamSayi + item.Adet;
+                   
+                            ToplamFiyat = ToplamFiyat + (item.Fiyat * item.Adet);
+                        
+                        r = r + 1;
+
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr class="FontSize">
+                        <td></td>
+                        <td></td>
+                        <td><b>Toplam</b></td>
+                        <td></td>
+                        <td class="text-center text-danger">
+                            <h2 class="FontSize">@ToplamSayi</h2>
+                        </td>
+                        @if (ViewBag.IsWekeend)
+                        {
+                        <td></td>}
+                        <td class="text-center text-danger">
+                            <h2 class="FontSize">@ToplamFiyat ₺    </h2>
+                        </td>
+                        @if (ViewBag.IsWekeend)
+                        {
+                            <td class="text-center text-danger">
+                                <h2 class="FontSize">@(ToplamFiyat- ToplamFiyat*0.1) ₺    </h2>
+                            </td>
+                        }
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+        <section class="flat-row flat-tab-menu menu-2">
+            <div class="container">
+                <div class="row">
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <a href="/Home/SepetiBosalt" class="btn btn-danger">Sepeti Boşalt </a>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </section>
+    </div>
+</div>
+
+<script src="~/javascript/jquery.min.js"></script>
+@*<script>
+        function SepeteEkle(Id) {
+            console.log(Id);
+            document.getElementById("SepetId").value = Id;
+            document.getElementById('AddOrderSubmit').click();
+
+            //Toaster eklendi.
+            Command: toastr["success"]("Ürün sepete eklendi.", "Başarılı")
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+    </script>*@

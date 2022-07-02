@@ -1,0 +1,82 @@
+﻿@model List<IsimTescil.Models.Urunler>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+    int ToplamSayi = 0;
+    double ToplamFiyat = 0;
+}
+
+
+<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+    <a style="margin-left: -1em; margin-bottom: 1em; width: 5em;" href="~/Home/Create" class="btn btn-primary">Ekle</a>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <section class="panel">
+            <header class="panel-heading no-border">
+                Hasta Uzmanlık
+            </header>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Hasta Uzmanlık Adı</th>
+                        <th>Fiyatı</th>
+                        <th>Güncelle</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@i</td>
+
+                            <td>@item.UrunAdi</td>
+                            <td>@item.Fiyat</td>
+
+                            <td>
+                                <a href="/Home/Edit/@item.Id" class=" btn btn-warning btn-sm "><i data-feather='edit'></i>Güncelle </a>
+                            </td>
+                            <td>
+                                <a href="/Home/Delete/@item.Id" class="btn btn-danger "><i data-feather='trash-2'></i> Sil</a>
+                            </td>
+                        </tr>
+                        i = i + 1;
+                    }
+
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+
+@*<script src="~/javascript/jquery.min.js"></script>
+    <script>
+        function SepeteEkle(Id) {
+            console.log(Id);
+            document.getElementById("SepetId").value = Id;
+            document.getElementById('AddOrderSubmit').click();
+
+            //Toaster eklendi.
+            Command: toastr["success"]("Ürün sepete eklendi.", "Başarılı")
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+    </script>*@
